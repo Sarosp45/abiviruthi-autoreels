@@ -1,0 +1,53 @@
+{
+ "series": "land-tips",
+ "post_at": "2026-11-02 19:30",
+ "scenes": [
+  {
+   "type": "hook",
+   "emoji": "🏡",
+   "kicker": "LAND TIPS",
+   "title": "நிலம் வாங்கும் முன் *இதை* பாருங்க!",
+   "say": "நிலம் வாங்கும் முன் இதை கட்டாயம் பாருங்க!",
+   "image": "empty land plot for sale"
+  },
+  {
+   "type": "quiz",
+   "kicker": "QUIZ",
+   "question": "நிலத்தின் உரிமையாளர் யார் என்று காட்டும் ஆவணம் எது?",
+   "options": [
+    "EC",
+    "பட்டா (Patta)",
+    "Building Plan"
+   ],
+   "answer": 1,
+   "say": "உரிமையாளர் யார் என்று காட்டும் ஆவணம் எது?",
+   "say_after": "சரியான பதில், பட்டா!"
+  },
+  {
+   "type": "list",
+   "title": "இந்த *4 Documents* கட்டாயம்:",
+   "icon": "✅",
+   "items": [
+    "*பட்டா* (உரிமை)",
+    "*EC* (வில்லங்கச் சான்று)",
+    "*மூலப் பத்திரம்*",
+    "*DTCP / RERA* அனுமதி"
+   ],
+   "say": "பட்டா, EC, மூலப் பத்திரம், மற்றும் DTCP அல்லது RERA அனுமதி. இந்த நான்கும் கட்டாயம்!"
+  },
+  {
+   "type": "cta",
+   "icons": [
+    "💾",
+    "📲",
+    "🏡"
+   ],
+   "title": "Free *Checklist* வேணுமா?",
+   "button": "Comment “CHECKLIST”",
+   "say": "Free checklist வேணும்னா, comment-ல CHECKLIST என்று type பண்ணுங்க!"
+  }
+ ],
+ "caption": "நிலம் வாங்கும் முன் இந்த 4 Documents கட்டாயம் பாருங்க! 🏡\n\n1️⃣ பட்டா\n2️⃣ EC (வில்லங்கச் சான்று)\n3️⃣ மூலப் பத்திரம்\n4️⃣ DTCP / RERA அனுமதி\n\nFree Checklist வேணுமா? Comment-ல CHECKLIST என்று type பண்ணுங்க 👇",
+ "hashtags": "#CoimbatoreRealEstate #Coimbatore #PlotsForSale #LandTips #Patta #DTCPApproved #Tiruppur #Pollachi #Abiviruthi",
+ "youtube_title": "நிலம் வாங்கும் முன் இதை பாருங்க! #LandTips #Shorts"
+}

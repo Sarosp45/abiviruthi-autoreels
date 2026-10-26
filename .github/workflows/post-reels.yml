@@ -1,0 +1,35 @@
+name: Post reels
+# 12:30 pm and 7:30 pm India time (GitHub may start a few minutes late), or by hand.
+on:
+  schedule:
+    - cron: "0 7 * * *"
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: autoreels
+jobs:
+  post:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -q requests
+      - name: Post everything that is due
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          META_PAGE_TOKEN: ${{ secrets.META_PAGE_TOKEN }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python -m poster.jobs post
+      - name: Save progress
+        if: always()
+        run: |
+          git config user.name "reel-bot" && git config user.email "reel-bot@users.noreply.github.com"
+          git add state.json && git commit -m "Posted reels" && git pull --rebase && git push || echo "nothing to save"

@@ -1,0 +1,22 @@
+{
+  "series": "quiz",
+  "post_at": "2026-11-03 19:30",
+  "style": "neon",
+  "scenes": [
+    {"type": "hook", "emoji": "🧠", "kicker": "விடுகதை TIME",
+     "title": "3 seconds-ல *answer* சொல்லுங்க!",
+     "say": "மூன்று seconds-ல answer சொல்லுங்க பார்ப்போம்!"},
+    {"type": "quiz", "kicker": "விடுகதை #1",
+     "question": "காலையில் நாலு கால், மதியம் இரண்டு கால், மாலையில் மூன்று கால். அது என்ன?",
+     "answer_text": "*மனிதன்* 👶🧑👴",
+     "say": "காலையில் நாலு கால், மதியம் இரண்டு கால், மாலையில் மூன்று கால். அது என்ன?",
+     "say_after": "மனிதன்! குழந்தை, இளைஞன், முதியவர்."},
+    {"type": "cta", "icons": ["💬", "🔥", "📤"],
+     "title": "Answer சரியா? *Comment* பண்ணுங்க!",
+     "button": "FOLLOW 👉",
+     "say": "உங்க answer சரியா? Comment பண்ணுங்க, நண்பர்களுக்கு share பண்ணுங்க!"}
+  ],
+  "caption": "இந்த விடுகதைக்கு 3 seconds-ல answer தெரிஞ்சுதா? 🧠 Comment பண்ணுங்க 👇\n\nதினமும் ஒரு விடுகதை-க்கு Follow பண்ணுங்க!",
+  "hashtags": "#Vidukathai #TamilRiddles #TamilQuiz #Riddle #Coimbatore #Kovai #Tamil",
+  "youtube_title": "3 seconds-ல answer சொல்லுங்க! விடுகதை #Shorts"
+}

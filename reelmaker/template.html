@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<title>reel</title>
+<style>
+@font-face{font-family:Head;font-weight:600;src:url(fonts/baloo-thambi-2-tamil-600-normal.woff2) format("woff2");unicode-range:U+0B80-0BFF,U+200C-200D,U+25CC}
+@font-face{font-family:Head;font-weight:800;src:url(fonts/baloo-thambi-2-tamil-800-normal.woff2) format("woff2");unicode-range:U+0B80-0BFF,U+200C-200D,U+25CC}
+@font-face{font-family:Head;font-weight:600;src:url(fonts/baloo-thambi-2-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Head;font-weight:800;src:url(fonts/baloo-thambi-2-latin-800-normal.woff2) format("woff2")}
+@font-face{font-family:Body;font-weight:500;src:url(fonts/noto-sans-tamil-tamil-500-normal.woff2) format("woff2");unicode-range:U+0B80-0BFF,U+200C-200D,U+25CC}
+@font-face{font-family:Body;font-weight:700;src:url(fonts/noto-sans-tamil-tamil-700-normal.woff2) format("woff2");unicode-range:U+0B80-0BFF,U+200C-200D,U+25CC}
+@font-face{font-family:Body;font-weight:500;src:url(fonts/noto-sans-tamil-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Body;font-weight:700;src:url(fonts/noto-sans-tamil-latin-700-normal.woff2) format("woff2")}
+
+:root{--bg1:#06302b;--bg2:#0b5d4f;--accent:#f6c445;--accent2:#ff7a59;--ink:#fffdf5;--card:rgba(255,255,255,.10);--good:#3ddc84;--bad:#ff5a5a}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg1)}
+body{font-family:Body,sans-serif;color:var(--ink);position:relative}
+/* every animation is paused and driven by seek() so frames are exact */
+*{animation-play-state:paused!important}
+em{font-style:normal;color:var(--accent)}
+
+/* ---------- background ---------- */
+#bg{position:absolute;inset:0;background:radial-gradient(120% 80% at 20% 10%,var(--bg2),var(--bg1) 70%)}
+.blob{position:absolute;border-radius:50%;filter:blur(70px)}
+.b1{width:760px;height:760px;left:-220px;top:160px;background:var(--accent);opacity:.22;animation:drift1 9s ease-in-out infinite alternate}
+.b2{width:680px;height:680px;right:-240px;top:880px;background:var(--accent2);opacity:.24;animation:drift2 7s ease-in-out infinite alternate}
+.b3{width:560px;height:560px;left:240px;top:1320px;background:#59c3ff;opacity:.16;animation:drift1 11s ease-in-out infinite alternate-reverse}
+@keyframes drift1{to{transform:translate(300px,-220px) scale(1.3)}}
+@keyframes drift2{to{transform:translate(-340px,180px) scale(.8)}}
+#grid{position:absolute;inset:-200px;background-image:radial-gradient(rgba(255,255,255,.10) 2.5px,transparent 2.5px);background-size:60px 60px;animation:pan 12s linear infinite}
+@keyframes pan{to{background-position:600px 1200px}}
+.ring{position:absolute;border-radius:50%;border:6px dashed rgba(255,255,255,.12);animation:spin 18s linear infinite}
+.r1{width:900px;height:900px;right:-430px;top:-260px}
+.r2{width:640px;height:640px;left:-360px;bottom:120px;border-color:rgba(255,255,255,.10);animation-duration:24s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pt{position:absolute;font-family:Head;font-weight:800;color:var(--accent);opacity:.35;animation:floaty linear infinite}
+@keyframes floaty{from{transform:translateY(0) rotate(0)}to{transform:translateY(-2300px) rotate(540deg)}}
+
+/* ---------- frame ---------- */
+#bars{position:absolute;top:70px;left:80px;right:80px;display:flex;gap:10px;z-index:5}
+#bars i{flex:1;height:9px;border-radius:9px;background:rgba(255,255,255,.22);overflow:hidden}
+#bars i b{display:block;height:100%;width:0;background:var(--accent)}
+#top{position:absolute;top:110px;left:80px;right:80px;display:flex;align-items:center;justify-content:space-between;z-index:5}
+#brand{display:flex;align-items:center;gap:18px;font-family:Head;font-weight:800;font-size:40px;letter-spacing:1px}
+#logo{width:64px;height:64px;border-radius:18px;background:var(--accent);color:var(--bg1);display:grid;place-items:center;font-size:40px}
+#series{font-family:Head;font-weight:800;font-size:34px;background:var(--ink);color:var(--bg1);padding:10px 26px 4px;border-radius:40px}
+#foot{position:absolute;left:80px;right:80px;bottom:300px;display:flex;justify-content:center;z-index:5}
+#handle{font-family:Head;font-weight:600;font-size:40px;background:rgba(0,0,0,.30);padding:12px 34px 6px;border-radius:40px}
+#wipe{position:absolute;top:-300px;bottom:-300px;width:1500px;left:0;z-index:20;background:var(--accent);transform:translateX(-2600px) skewX(-14deg)}
+#wipe::after{content:"";position:absolute;top:0;bottom:0;right:0;width:220px;background:var(--accent2)}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:19}
+#stage{position:absolute;inset:0;transform-origin:50% 45%}
+
+/* ---------- scene animation vocabulary ---------- */
+.scene{position:absolute;left:90px;right:90px;top:270px;bottom:400px;display:flex;flex-direction:column;justify-content:center;gap:40px;opacity:0}
+.pop{animation:pop .5s cubic-bezier(.2,1.7,.4,1) both}
+@keyframes pop{0%{transform:scale(0) rotate(-12deg);opacity:0}100%{transform:none;opacity:1}}
+.slam{animation:slam .45s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes slam{0%{transform:scale(3);opacity:0}100%{transform:none;opacity:1}}
+.up{animation:up .5s cubic-bezier(.2,1.3,.3,1) both}
+@keyframes up{from{transform:translateY(80px) scale(.7);opacity:0}to{transform:none;opacity:1}}
+.left{animation:left .5s cubic-bezier(.2,1.2,.3,1) both}
+@keyframes left{from{transform:translateX(-160px);opacity:0}to{transform:none;opacity:1}}
+.right{animation:right .5s cubic-bezier(.2,1.2,.3,1) both}
+@keyframes right{from{transform:translateX(160px);opacity:0}to{transform:none;opacity:1}}
+.wobble{display:inline-block;animation:wob 1.8s ease-in-out infinite}
+@keyframes wob{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(8deg) translateY(-26px)}}
+.pulse{animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+.w{display:inline-block;margin-right:.24em}
+.w em{position:relative;display:inline-block;z-index:0}
+.w em::before{content:"";position:absolute;left:-8px;right:-8px;bottom:.12em;height:.36em;background:var(--accent2);opacity:.5;border-radius:8px;z-index:-1;transform-origin:left;transform:scaleX(var(--u,0))}
+.kicker{align-self:flex-start;font-family:Head;font-weight:800;font-size:46px;color:var(--bg1);background:var(--accent);padding:14px 34px 6px;border-radius:20px;transform-origin:left center;box-shadow:10px 10px 0 var(--accent2)}
+.title{font-family:Head;font-weight:800;font-size:108px;line-height:1.16;text-shadow:0 8px 0 rgba(0,0,0,.28)}
+.emoji{font-size:230px;line-height:1;align-self:center;filter:drop-shadow(0 18px 0 rgba(0,0,0,.25))}
+.halo{position:relative;align-self:flex-start;width:220px;height:220px;border-radius:50%;background:var(--accent);display:grid;place-items:center;font-size:130px;box-shadow:0 0 0 18px rgba(255,255,255,.08)}
+.halo::after{content:"";position:absolute;inset:-18px;border-radius:50%;border:6px solid var(--accent);animation:ping 1.3s ease-out infinite}
+@keyframes ping{from{transform:scale(1);opacity:.9}to{transform:scale(1.5);opacity:0}}
+.num{position:absolute;top:20px;right:40px;font-family:Head;font-weight:800;font-size:170px;line-height:1;color:transparent;-webkit-text-stroke:5px var(--accent);opacity:.9}
+.big{font-family:Head;font-weight:800;font-size:200px;line-height:1;color:var(--accent);text-shadow:0 12px 0 rgba(0,0,0,.28)}
+.text{font-family:Body;font-weight:700;font-size:70px;line-height:1.45}
+.card{background:var(--card);border:3px solid rgba(255,255,255,.18);border-radius:44px;padding:56px 54px;position:relative}
+.opts{display:flex;flex-direction:column;gap:22px}
+.opt{display:flex;align-items:center;gap:30px;font-family:Body;font-weight:700;font-size:56px;background:var(--card);border:4px solid rgba(255,255,255,.22);border-radius:30px;padding:24px 36px}
+.opt b{font-family:Head;font-weight:800;width:84px;height:84px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--bg1);font-size:48px;padding-top:6px}
+.opt.right{background:var(--good);border-color:var(--good);color:#04241a}
+.opt.wrong{opacity:.3}
+.timer{position:relative;align-self:center;width:170px;height:170px;flex:none}
+.timer svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.timer span{position:absolute;inset:0;display:grid;place-items:center;font-family:Head;font-weight:800;font-size:96px;color:var(--accent2);padding-top:12px}
+.list{display:flex;flex-direction:column;gap:26px}
+.li{display:flex;align-items:center;gap:30px;font-family:Body;font-weight:700;font-size:60px;line-height:1.3;background:var(--card);border-radius:28px;padding:26px 34px;border-left:14px solid var(--accent)}
+.li i{font-style:normal;font-size:66px;display:inline-block}
+.vs{display:flex;flex-direction:column;gap:70px}
+.side{border-radius:40px;padding:56px 46px 40px;font-family:Body;font-weight:700;font-size:62px;line-height:1.4;position:relative}
+.side.myth{background:rgba(255,90,90,.18);border:4px solid var(--bad)}
+.side.fact{background:rgba(61,220,132,.18);border:4px solid var(--good)}
+.stamp{position:absolute;right:30px;top:-46px;font-family:Head;font-weight:800;font-size:54px;padding:10px 28px 2px;border-radius:16px;rotate:6deg}
+.myth .stamp{background:var(--bad)}.fact .stamp{background:var(--good);color:#04241a}
+.ctaicons{display:flex;justify-content:center;gap:50px;font-size:150px}
+.small{font-family:Body;font-weight:700;font-size:50px;line-height:1.5}
+.btn{align-self:center;font-family:Head;font-weight:800;font-size:64px;background:var(--accent);color:var(--bg1);padding:22px 60px 12px;border-radius:80px;box-shadow:0 12px 0 rgba(0,0,0,.3)}
+
+/* ---------- photos ---------- */
+#photos{position:absolute;inset:0}
+.ph{position:absolute;inset:0;opacity:0;overflow:hidden}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 40%}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.15) 30%,rgba(0,0,0,.35) 55%,var(--shade) 100%)}
+.credit{position:absolute;left:90px;right:90px;bottom:240px;font-family:Body;font-weight:500;font-size:24px;opacity:.75;z-index:6;text-align:center;color:#fff}
+body{--shade:rgba(0,0,0,.85)}
+.scene.onphoto{justify-content:flex-end;padding-bottom:30px;color:#fff}
+.scene.onphoto .card{background:rgba(0,0,0,.55);border-color:rgba(255,255,255,.25)}
+.scene.onphoto .title,.scene.onphoto .text{text-shadow:0 4px 18px rgba(0,0,0,.8)}
+.scene.onphoto .halo{width:150px;height:150px;font-size:86px}
+.polaroid{align-self:center;background:#fff;padding:20px 20px 56px;box-shadow:14px 14px 0 rgba(0,0,0,.85);rotate:-3deg;width:700px;flex:none}
+.polaroid img{display:block;width:100%;height:400px;object-fit:cover}
+
+/* ---------- styles (picked at random per reel) ---------- */
+body.style-paper{--bg1:#f3ead3;--bg2:#fbf6e9;--accent:#d62828;--accent2:#f4a261;--ink:#1d1a16;--card:#fffdf7;color:var(--ink);background:var(--bg1)}
+.style-paper #bg{background:repeating-linear-gradient(0deg,transparent 0 58px,rgba(29,26,22,.08) 58px 60px),var(--bg1)}
+.style-paper .blob,.style-paper .ring,.style-paper #grid{display:none}
+.style-paper .pt{color:var(--ink);opacity:.12}
+.style-paper .title{text-shadow:none}
+.style-paper .card,.style-paper .opt,.style-paper .li{border:5px solid var(--ink);box-shadow:12px 12px 0 var(--ink);background:var(--card)}
+.style-paper .kicker{background:var(--ink);color:var(--bg1);box-shadow:8px 8px 0 var(--accent)}
+.style-paper #series,.style-paper #handle{background:var(--ink);color:var(--bg1)}
+.style-paper #logo{background:var(--accent);color:#fff}
+.style-paper .num{-webkit-text-stroke-color:var(--ink)}
+.style-paper .halo{background:var(--accent2)}
+.style-paper .big{text-shadow:6px 6px 0 var(--ink);color:var(--accent)}
+.style-paper .opt b{background:var(--ink);color:var(--bg1)}
+.style-paper #bars i{background:rgba(29,26,22,.15)}
+
+body.style-neon{--bg1:#05050c;--bg2:#120a2a;--accent:#2ef2ff;--accent2:#ff2bd6;--ink:#f5f7ff;--card:rgba(46,242,255,.06)}
+.style-neon .blob{opacity:.12!important}
+.style-neon #grid{background-image:linear-gradient(rgba(255,43,214,.18) 2px,transparent 2px),linear-gradient(90deg,rgba(46,242,255,.14) 2px,transparent 2px);background-size:90px 90px}
+.style-neon .title,.style-neon .big{text-shadow:0 0 18px var(--accent2),0 0 42px var(--accent2)}
+.style-neon em{text-shadow:0 0 16px var(--accent),0 0 36px var(--accent)}
+.style-neon .card,.style-neon .opt,.style-neon .li{border:4px solid var(--accent);box-shadow:0 0 24px var(--accent),inset 0 0 24px rgba(46,242,255,.25)}
+.style-neon .kicker{background:transparent;color:var(--accent2);border:4px solid var(--accent2);box-shadow:0 0 22px var(--accent2)}
+.style-neon .halo{background:transparent;border:5px solid var(--accent2);box-shadow:0 0 30px var(--accent2)}
+
+body.style-clean{--bg1:#f7f7f4;--bg2:#ffffff;--accent:#ff5a1f;--accent2:#1f6fff;--ink:#121212;--card:#ffffff;color:var(--ink)}
+.style-clean .blob{opacity:.10!important}
+.style-clean .ring{border-color:rgba(0,0,0,.08)}
+.style-clean #grid{background-image:radial-gradient(rgba(0,0,0,.08) 2.5px,transparent 2.5px)}
+.style-clean .title{text-shadow:none;letter-spacing:-1px}
+.style-clean .card,.style-clean .opt,.style-clean .li{box-shadow:0 24px 60px rgba(0,0,0,.12);border:none;background:var(--card)}
+.style-clean #series{background:var(--ink);color:#fff}
+.style-clean #handle{background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.style-clean #brand{background:#fff;padding:8px 26px 8px 8px;border-radius:40px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.style-clean .pt{color:var(--accent2);opacity:.18}
+.style-clean .opt b{background:var(--ink);color:#fff}
+.style-clean #bars i{background:rgba(0,0,0,.1)}
+.style-clean .scene.onphoto .card{background:rgba(255,255,255,.92);color:var(--ink)}
+.style-clean .scene.onphoto .card .text{text-shadow:none}
+.style-paper .scene.onphoto{color:var(--ink)}
+</style>
+</head>
+<body>
+<div id="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="ring r1"></div><div class="ring r2"></div></div>
+<div id="grid"></div>
+<div id="parts"></div>
+<div id="photos"></div>
+<div id="stage"></div>
+<div class="credit" id="credit"></div>
+<div id="bars"></div>
+<div id="top"><div id="brand"><div id="logo"></div><span id="brandname"></span></div><div id="series"></div></div>
+<div id="foot"><div id="handle"></div></div>
+<div id="flash"></div>
+<div id="wipe"></div>
+<script>
+// window.REEL is injected by render.py: {brand, handle, theme, series, scenes:[{type,start,end,talk,...}]}
+const R = window.REEL;
+const $ = (h) => { const t = document.createElement('template'); t.innerHTML = h.trim(); return t.content.firstChild; };
+// *word* becomes highlighted with an animated marker
+const hi = (s) => String(s || '').replace(/[&<]/g, c => ({'&':'&amp;','<':'&lt;'}[c])).replace(/\*(.+?)\*/g, '<em>$1</em>');
+const split = (s) => hi(s).split(/ (?![^<]*<\/em>)/);
+// words pop in one by one, spread over the time the voice is speaking
+const words = (s, d0, span, cls = 'up') => { const w = split(s), step = Math.min(.14, span / Math.max(1, w.length));
+  return w.map((x, i) => `<span class="w ${cls}" data-at="${(d0 + i * step).toFixed(2)}" style="animation-delay:${(d0 + i * step).toFixed(2)}s">${x}</span>`).join(''); };
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+for (const [k, v] of Object.entries(R.theme || {})) document.documentElement.style.setProperty('--' + k, v);
+const STYLE = R.style || 'bold';
+document.body.classList.add('style-' + STYLE);
+const PAPER = STYLE === 'paper';
+document.getElementById('brandname').textContent = R.brand;
+document.getElementById('logo').textContent = R.logo || R.brand[0];
+document.getElementById('series').textContent = R.series;
+document.getElementById('handle').textContent = R.handle;
+const parts = document.getElementById('parts');
+for (let i = 0; i < 18; i++) {
+  const p = $(`<div class="pt">${'✦+●▲◆'[i % 5]}</div>`);
+  Object.assign(p.style, { left: rnd() * 1040 + 'px', top: 1950 + rnd() * 400 + 'px', fontSize: 24 + rnd() * 50 + 'px',
+    animationDuration: 6 + rnd() * 8 + 's', animationDelay: -rnd() * 14 + 's' });
+  parts.appendChild(p);
+}
+
+const stage = document.getElementById('stage'), bars = document.getElementById('bars');
+const T = s => Math.max(.8, (s.talk || 2) * .8);   // time window for word reveals
+const flipAt = s => s.flip || T(s) * .5 + .4;
+const builders = {
+  hook: s => `<section class="scene">
+      ${s.emoji && !s.img ? `<div class="emoji slam" style="animation-delay:.05s"><span class="wobble">${s.emoji}</span></div>` : ''}
+      ${s.kicker ? `<div class="kicker pop" style="animation-delay:.2s">${hi(s.kicker)}</div>` : ''}
+      <div class="title">${words(s.title, .35, Math.min(1.6, T(s)), 'slam')}</div></section>`,
+  point: s => `<section class="scene">
+      <div class="card left">
+        ${s.n ? `<div class="num slam" style="animation-delay:.15s">${s.n}</div>` : ''}
+        ${s.emoji && !s.img ? `<div class="halo pop" style="animation-delay:.1s;margin-bottom:34px"><span class="wobble">${s.emoji}</span></div>` : ''}
+        ${s.big ? `<div class="big slam" data-count="${s.big}" style="animation-delay:.25s;margin-bottom:26px">${hi(s.big)}</div>` : ''}
+        <div class="text">${words(s.text, .4, T(s))}</div>
+      </div></section>`,
+  stat: s => `<section class="scene" style="text-align:center;align-items:center">
+      ${s.emoji && !s.img ? `<div class="emoji pop" style="font-size:170px;animation-delay:.05s"><span class="wobble">${s.emoji}</span></div>` : ''}
+      <div class="big slam" data-count="${s.big}" style="font-size:240px;animation-delay:.15s">${hi(s.big)}</div>
+      <div class="text" style="font-size:72px">${words(s.text, .6, T(s))}</div></section>`,
+  list: s => `<section class="scene">
+      ${s.title ? `<div class="title" style="font-size:84px">${words(s.title, .1, .6, 'slam')}</div>` : ''}
+      <div class="list">${s.items.map((x, i) => { const at = .5 + i * Math.max(.35, T(s) / s.items.length);
+        return `<div class="li left" style="animation-delay:${at.toFixed(2)}s"><i class="pop" style="animation-delay:${(at + .15).toFixed(2)}s">${s.icon || '✅'}</i><span>${hi(x)}</span></div>`; }).join('')}</div></section>`,
+  myth: s => `<section class="scene">
+      <div class="vs">
+        <div class="side myth left" style="animation-delay:.05s"><div class="stamp slam" style="animation-delay:.45s">MYTH ❌</div>${hi(s.myth)}</div>
+        <div class="side fact right" style="animation-delay:${flipAt(s).toFixed(2)}s"><div class="stamp slam" style="animation-delay:${(flipAt(s) + .4).toFixed(2)}s">FACT ✅</div>${hi(s.fact)}</div>
+      </div></section>`,
+  quiz: s => `<section class="scene">
+      ${s.kicker ? `<div class="kicker pop" style="animation-delay:.05s">${hi(s.kicker)}</div>` : ''}
+      <div class="title" style="font-size:74px">${words(s.question, .2, Math.min(1.5, T(s)))}</div>
+      ${s.options ? `<div class="opts">${s.options.map((o, i) =>
+        `<div class="opt left" data-i="${i}" style="animation-delay:${(.7 + i * .15).toFixed(2)}s"><b>${'ABCD'[i]}</b><span>${hi(o)}</span></div>`).join('')}</div>`
+      : `<div class="card answer" style="text-align:center;opacity:0"><div class="title" style="font-size:96px">${hi(s.answer_text)}</div></div>`}
+      <div class="timer pop" style="animation-delay:1.1s"><svg viewBox="0 0 170 170"><circle cx="85" cy="85" r="74" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="14"/><circle class="arc" cx="85" cy="85" r="74" fill="none" stroke="var(--accent2)" stroke-width="14" stroke-linecap="round" stroke-dasharray="465" stroke-dashoffset="0"/></svg><span>3</span></div></section>`,
+  cta: s => `<section class="scene" style="text-align:center">
+      <div class="ctaicons">${(s.icons || ['❤️','💾','📤']).map((e, i) =>
+        `<span class="pop" style="animation-delay:${(.05 + i * .12).toFixed(2)}s"><span class="wobble" style="animation-delay:${-i * .5}s">${e}</span></span>`).join('')}</div>
+      <div class="title" style="font-size:92px">${words(s.title, .4, .9, 'slam')}</div>
+      ${s.text ? `<div class="small up" style="animation-delay:1s">${hi(s.text)}</div>` : ''}
+      ${s.button ? `<div class="btn slam" style="animation-delay:1.3s"><div class="pulse">${hi(s.button)}</div></div>` : ''}</section>`
+};
+
+const photos = document.getElementById('photos');
+const scenes = R.scenes.map(s => {
+  const el = $(builders[s.type](s));
+  let ph = null;
+  if (s.img && PAPER) {          // paper style: photo as a tilted polaroid at the top
+    const pol = $(`<div class="polaroid pop" style="animation-delay:.05s"><img src="${s.img}"></div>`);
+    el.insertBefore(pol, el.firstChild);
+  } else if (s.img) {            // other styles: full-screen photo with a slow zoom
+    ph = $(`<div class="ph"><img src="${s.img}"></div>`);
+    photos.appendChild(ph);
+    el.classList.add('onphoto');
+  }
+  stage.appendChild(el);
+  const bar = $('<i><b></b></i>'); bars.appendChild(bar);
+  return { s, el, ph, bar: bar.firstChild, anims: null, ems: [...el.querySelectorAll('.w em')] };
+});
+const bgAnims = ['#bg', '#grid', '#parts'].flatMap(q => document.querySelector(q).getAnimations({ subtree: true }));
+const wipe = document.getElementById('wipe'), flash = document.getElementById('flash');
+const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+
+// seek(t): put every element in its exact state at time t (seconds)
+window.seek = (t) => {
+  for (const a of bgAnims) { a.pause(); a.currentTime = t * 1000; }
+  // transition: a coloured wipe sweeps across at each scene change, then a soft white flash
+  let w = -2600, fl = 0;
+  for (const sc of scenes.slice(1)) {
+    const d = t - sc.s.start;
+    if (d > -.22 && d < .22) w = -2600 + ease((d + .22) / .44) * 4400;
+    if (d >= .1 && d < .28) fl = .22 * (1 - (d - .1) / .18);
+  }
+  wipe.style.transform = `translateX(${w}px) skewX(-14deg)`;
+  flash.style.opacity = fl;
+  let credit = '';
+  for (const sc of scenes) {     // photos: crossfade in, slow Ken Burns zoom and drift
+    if (!sc.ph) continue;
+    const local = t - sc.s.start, len = sc.s.end - sc.s.start;
+    const on = local > -.2 && local < len + .2;
+    sc.ph.style.opacity = on ? Math.min(1, (local + .2) / .3, (len + .2 - local) / .3) : 0;
+    if (on) {
+      const p = Math.max(0, local) / len, dir = sc.s.start % 2 < 1 ? 1 : -1;
+      sc.ph.firstChild.style.transform = `scale(${1.08 + .12 * p}) translateX(${dir * (p - .5) * 50}px)`;
+      if (local >= 0 && local < len) credit = sc.s.credit || '';
+    }
+  }
+  document.getElementById('credit').textContent = credit ? '📷 ' + credit : '';
+  for (const sc of scenes) {
+    const { s, el } = sc, local = t - s.start, len = s.end - s.start;
+    sc.bar.style.width = Math.max(0, Math.min(1, local / len)) * 100 + '%';
+    const on = local >= 0 && local < len;
+    el.style.opacity = on ? 1 : 0;
+    if (!on) continue;
+    // slow camera push-in, with a small punch at the start of each scene
+    const punch = local < .3 ? .05 * (1 - local / .3) : 0;
+    stage.style.transform = `scale(${1 + .035 * local / len + punch})`;
+    sc.anims = sc.anims || el.getAnimations({ subtree: true });
+    for (const a of sc.anims) { a.pause(); a.currentTime = local * 1000; }
+    for (const em of sc.ems) {   // marker underline draws under highlighted words
+      const at = parseFloat(em.closest('.w').dataset.at || 0) + .3;
+      em.style.setProperty('--u', Math.max(0, Math.min(1, (local - at) / .35)));
+    }
+    if (s.type === 'quiz') {
+      const cd = s.countdown || 3, left = s.reveal - local;
+      el.querySelector('.timer span').textContent = left <= 0 ? '✓' : left <= cd ? Math.ceil(left) : cd;
+      el.querySelector('.arc').style.strokeDashoffset = 465 * Math.min(1, Math.max(0, 1 - left / cd));
+      const ans = el.querySelector('.answer');
+      if (ans) { const k = Math.max(0, Math.min(1, -left / .35)); ans.style.opacity = k; ans.style.transform = `scale(${.6 + .4 * k})`; }
+      el.querySelectorAll('.opt').forEach(o => {
+        const done = left <= 0, ok = +o.dataset.i === s.answer;
+        o.classList.toggle('right', done && ok); o.classList.toggle('wrong', done && !ok);
+      });
+    }
+    const big = el.querySelector('[data-count]');
+    if (big) {   // count numbers up, e.g. "1,00,000+" or "112 அடி"
+      const m = big.dataset.count.match(/^([^\d]*)([\d,\.]+)(.*)$/);
+      if (m) {
+        const target = parseFloat(m[2].replace(/,/g, '')), p = Math.min(1, Math.max(0, (local - .2) / 1.0));
+        const v = target * (1 - Math.pow(1 - p, 3)), dec = (m[2].split('.')[1] || '').length;
+        const txt = p >= 1 ? m[2] : v.toLocaleString('en-IN', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+        big.innerHTML = hi(m[1] + txt + m[3]);
+        big.style.scale = p >= 1 ? 1 + .04 * Math.sin((local - 1.2) * 6) : 1;
+      }
+    }
+  }
+};
+window.READY = document.fonts.ready.then(() => { seek(0); return true; });
+</script>
+</body>
+</html>

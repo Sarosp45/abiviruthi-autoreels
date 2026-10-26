@@ -1,0 +1,85 @@
+{
+  "brand": "ABIVIRUTHI",
+  "logo_letter": "அ",
+  "handle": "@abiviruthiproperties",
+  "voice": "ta-IN-PallaviNeural",
+  "voice_rate": "+8%",
+  "music_volume": 0.14,
+  "timezone": "Asia/Kolkata",
+  "auto_approve": true,
+  "platforms": {
+    "instagram": true,
+    "facebook": true,
+    "youtube": true
+  },
+  "theme": {
+    "bg1": "#06302b",
+    "bg2": "#0b5d4f",
+    "accent": "#f6c445",
+    "accent2": "#ff7a59"
+  },
+  "series": {
+    "kovai-facts": {
+      "label": "கோவை FACTS",
+      "voice": "ta-IN-PallaviNeural"
+    },
+    "land-tips": {
+      "label": "LAND TIPS",
+      "voice": "ta-IN-ValluvarNeural",
+      "theme": {
+        "bg1": "#1a1240",
+        "bg2": "#3b2a8c",
+        "accent": "#ffd23f",
+        "accent2": "#ff5c8a"
+      }
+    },
+    "quiz": {
+      "label": "QUIZ TIME",
+      "voice": "ta-IN-PallaviNeural",
+      "theme": {
+        "bg1": "#0d2340",
+        "bg2": "#1f5aa6",
+        "accent": "#ffcf33",
+        "accent2": "#ff6b4a"
+      }
+    },
+    "office-games": {
+      "label": "OFFICE GAMES",
+      "voice": "ta-IN-ValluvarNeural",
+      "theme": {
+        "bg1": "#3a0d2e",
+        "bg2": "#8c1f5e",
+        "accent": "#ffe066",
+        "accent2": "#4ad6ff"
+      }
+    },
+    "myth-fact": {
+      "label": "MYTH vs FACT",
+      "voice": "ta-IN-ValluvarNeural",
+      "theme": {
+        "bg1": "#2b0f12",
+        "bg2": "#7a1f2b",
+        "accent": "#ffd166",
+        "accent2": "#06d6a0"
+      }
+    },
+    "did-you-know": {
+      "label": "தெரியுமா?",
+      "voice": "ta-IN-PallaviNeural",
+      "theme": {
+        "bg1": "#0b1d3a",
+        "bg2": "#14508c",
+        "accent": "#7cf2ff",
+        "accent2": "#ffb703"
+      }
+    }
+  },
+  "max_seconds": 39.5,
+  "styles": [
+    "bold",
+    "paper",
+    "neon",
+    "clean",
+    "bold"
+  ]
+}

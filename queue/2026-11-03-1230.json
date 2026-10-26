@@ -1,0 +1,34 @@
+{
+ "series": "myth-fact",
+ "post_at": "2026-11-03 12:30",
+ "scenes": [
+  {
+   "type": "hook",
+   "emoji": "🧐",
+   "kicker": "MYTH vs FACT",
+   "title": "பட்டா இருந்தா *போதுமா?*",
+   "say": "பட்டா இருந்தா மட்டும் போதுமா?",
+   "image": "property documents signing"
+  },
+  {
+   "type": "myth",
+   "myth": "பட்டா இருந்தா நிலம் *100% safe*.",
+   "fact": "பட்டா மட்டும் போதாது! *EC*-ல கடன், அடமானம் இல்லைன்னு check பண்ணுங்க.",
+   "say": "பட்டா இருந்தா நிலம் நூறு சதவீதம் safe-ஆ? இல்லை! EC-ல கடனோ அடமானமோ இல்லைன்னு check பண்ணுங்க."
+  },
+  {
+   "type": "cta",
+   "icons": [
+    "💾",
+    "📤",
+    "🏡"
+   ],
+   "title": "நிலம் வாங்கும் நண்பருக்கு *Share* பண்ணுங்க!",
+   "button": "FOLLOW 👉",
+   "say": "நிலம் வாங்கும் நண்பருக்கு share பண்ணுங்க!"
+  }
+ ],
+ "caption": "பட்டா இருந்தா மட்டும் போதுமா? ❌\nEC (வில்லங்கச் சான்று) check பண்ணாம நிலம் வாங்காதீங்க!\n\nஇது போல Land Tips-க்கு Follow பண்ணுங்க 🏡",
+ "hashtags": "#CoimbatoreRealEstate #LandTips #Patta #EncumbranceCertificate #Coimbatore #PropertyTips #Abiviruthi",
+ "youtube_title": "பட்டா இருந்தா போதுமா? Myth vs Fact #Shorts"
+}

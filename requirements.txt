@@ -1,0 +1,4 @@
+edge-tts>=7.0
+playwright>=1.48
+numpy>=1.26
+requests>=2.31

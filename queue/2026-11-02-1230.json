@@ -1,0 +1,54 @@
+{
+ "series": "kovai-facts",
+ "post_at": "2026-11-02 12:30",
+ "scenes": [
+  {
+   "type": "hook",
+   "emoji": "🤯",
+   "kicker": "கோவை FACTS #1",
+   "title": "கோவை பற்றி இது *தெரியுமா?*",
+   "say": "கோவை பற்றி இது உங்களுக்கு தெரியுமா?",
+   "image": "Coimbatore city",
+   "image_source": "wiki"
+  },
+  {
+   "type": "point",
+   "n": "1",
+   "emoji": "🧵",
+   "text": "கோவைக்கு *தென்னிந்தியாவின் மான்செஸ்டர்* என்று பெயர்!",
+   "say": "கோவைக்கு தென்னிந்தியாவின் மான்செஸ்டர் என்று பெயர். காரணம், நூற்பாலைகள்!",
+   "image": "textile spinning mill"
+  },
+  {
+   "type": "point",
+   "n": "2",
+   "emoji": "⚙️",
+   "text": "நம்ம *Wet Grinder*-க்கு ‘கோவை வெட் கிரைண்டர்’ என்று *GI Tag* உண்டு!",
+   "say": "நம்ம வெட் கிரைண்டருக்கு, கோவை வெட் கிரைண்டர் என்று புவிசார் குறியீடு இருக்கு!",
+   "image": "wet grinder idli batter"
+  },
+  {
+   "type": "stat",
+   "emoji": "🙏",
+   "big": "112 அடி",
+   "text": "ஈஷா *ஆதியோகி*: உலகின் மிகப்பெரிய மார்பளவு சிலை, *கின்னஸ்* சாதனை!",
+   "say": "ஈஷா ஆதியோகி, நூற்றி பன்னிரண்டு அடி! உலகின் மிகப்பெரிய மார்பளவு சிலை.",
+   "image": "Adiyogi Shiva statue Isha",
+   "image_source": "wiki"
+  },
+  {
+   "type": "cta",
+   "icons": [
+    "❤️",
+    "💾",
+    "📤"
+   ],
+   "title": "தினமும் ஒரு *கோவை Fact*!",
+   "button": "FOLLOW 👉",
+   "say": "தினமும் ஒரு கோவை fact-க்கு, follow பண்ணுங்க!"
+  }
+ ],
+ "caption": "கோவை பற்றி இது தெரியுமா? 🤯 எத்தனை உங்களுக்கு already தெரியும்? Comment-ல சொல்லுங்க 👇\n\nதினமும் ஒரு கோவை Fact-க்கு Follow பண்ணுங்க.",
+ "hashtags": "#Coimbatore #Kovai #KovaiFacts #CoimbatoreDiaries #TamilFacts #Kovaimakkal #ManchesterOfSouthIndia #Adiyogi",
+ "youtube_title": "கோவை பற்றி இது தெரியுமா? #KovaiFacts #Shorts"
+}
