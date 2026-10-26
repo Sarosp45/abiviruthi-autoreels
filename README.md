@@ -28,7 +28,7 @@ You will collect a few "keys" and paste them into GitHub:
 | `META_PAGE_TOKEN` | Lets the system post on your Facebook Page and Instagram | Facebook Graph API Explorer (Claude walks you through it) |
 | `FB_PAGE_ID` | Your Facebook Page number | Same place |
 | `IG_USER_ID` | Your Instagram Business account number | Same place |
-| `PEXELS_API_KEY` (optional) | Better stock photos | pexels.com/api > sign up free > copy the key. Without it, photos come from Wikimedia Commons and Openverse. |
+| `PEXELS_API_KEY` (recommended) | Real photos for general topics (land, homes, food, people) | pexels.com/api > sign up free > copy the key. Without it, only named places (like Adiyogi) get photos, from Wikimedia Commons. |
 | `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN` | Lets the system upload to YouTube | Google Cloud Console + OAuth Playground (Claude walks you through it) |
 
 ### Before Meta setup

@@ -1,10 +1,10 @@
 """Find a real photo for a scene from free sources, no paid plan needed.
 
-Order tried:
-  1. Pexels (free API key in PEXELS_API_KEY; no credit needed, best for general topics)
-  2. Wikimedia Commons (no key; best for real places like Adiyogi or Marudhamalai; needs a credit line)
-  3. Openverse (no key; Creative Commons images from many sites; needs a credit line)
-A scene can say "image_source": "wiki" to try Wikimedia first (use it for named places).
+Sources:
+  - Pexels (free API key in PEXELS_API_KEY; no credit needed) for general topics
+  - Wikimedia Commons, then Openverse (no key; a credit line is added) for named places:
+    the scene says "image_source": "wiki"
+If nothing suitable is found the scene simply uses the animated background.
 Returns (local_path, credit) or (None, None). credit is "" when none is required.
 """
 import os
@@ -88,7 +88,9 @@ def find(query, out: Path, prefer=None):
         pics = sorted(Path(test_dir).glob("*.jpg"))
         if pics:
             return pics[hash(query) % len(pics)], "Test photo"
-    order = [wikimedia, pexels, openverse] if prefer == "wiki" else [pexels, wikimedia, openverse]
+    # Named places (Adiyogi, Marudhamalai...) come from Wikimedia/Openverse. General topics use Pexels only:
+    # the free-licence archives return random foreign photos for generic words (a Dutch "for sale" sign for "land plot").
+    order = [wikimedia, openverse, pexels] if prefer == "wiki" else [pexels]
     for source in order:
         try:
             path, credit = source(query, out)
