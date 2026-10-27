@@ -1,7 +1,7 @@
 """Find a real photo for a scene from free sources, no paid plan needed.
 
 Sources:
-  - Pexels (free API key in PEXELS_API_KEY; no credit needed) for general topics
+  - Pixabay (free API key in PIXABAY_API_KEY) or Pexels (PEXELS_API_KEY); no credit needed; for general topics
   - Wikimedia Commons, then Openverse (no key; a credit line is added) for named places:
     the scene says "image_source": "wiki"
 If nothing suitable is found the scene simply uses the animated background.
@@ -36,6 +36,22 @@ def pexels(query, out):
     for p in r.json().get("photos", []):
         try:
             return _download(p["src"].get("portrait") or p["src"]["large2x"], out), ""
+        except Exception:
+            continue
+    return None, None
+
+
+def pixabay(query, out):
+    key = os.environ.get("PIXABAY_API_KEY")
+    if not key:
+        return None, None
+    r = requests.get("https://pixabay.com/api/", timeout=30, params={
+        "key": key, "q": query[:100], "image_type": "photo", "orientation": "vertical",
+        "safesearch": "true", "per_page": 5, "order": "popular"})
+    r.raise_for_status()
+    for p in r.json().get("hits", []):
+        try:
+            return _download(p["largeImageURL"], out), ""
         except Exception:
             continue
     return None, None
@@ -90,7 +106,7 @@ def find(query, out: Path, prefer=None):
             return pics[hash(query) % len(pics)], "Test photo"
     # Named places (Adiyogi, Marudhamalai...) come from Wikimedia/Openverse. General topics use Pexels only:
     # the free-licence archives return random foreign photos for generic words (a Dutch "for sale" sign for "land plot").
-    order = [wikimedia, openverse, pexels] if prefer == "wiki" else [pexels]
+    order = [wikimedia, openverse, pixabay, pexels] if prefer == "wiki" else [pixabay, pexels]
     for source in order:
         try:
             path, credit = source(query, out)
